@@ -211,35 +211,72 @@ window.addEventListener('keydown', (e) => {
 # Project 6 Solution
 
 ```javascript
-//generate a random color
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="background-color: black; color: #fff;">
+    <h1>Click Start to see multiple colored backgrounds.</h1>
+    <button id="start">Start</button>
+    <button id="stop">Stop</button>
+    <button id="stop2">Stop Here</button>
+</body>
+<script>
+  // For generating the random hexcode for the background color.
 
-const randomColor = function () {
-  const hex = '0123456789ABCDEF';
-  let color = '#';
-  for (let i = 0; i < 6; i++) {
-    color += hex[Math.floor(Math.random() * 16)];
+    const randomColor = ()=>{
+        const hexCodes = "0123456789ABCDEF"
+        let color = "#"
+        for( let i = 0; i < 6; i++){
+            color += hexCodes[Math.floor(Math.random() * 16)]
+        }  
+         return color
+    }   
+  
+     // what the change
+    const changeColor = ()=> {
+       document.body.style.backgroundColor = randomColor()
+       document.querySelector("h1").textContent = "Click Stop to end the background color change"
+    }
+
+    // for how it will change
+
+    let clearInt;
+
+    const forBGColor = ()=>{
+        clearInt = setInterval(changeColor,1500)
+       }
+
+  document.querySelector("#start").addEventListener("click",forBGColor)
+
+    //Now for the stop button
+
+  const stopChangeColor = ()=>{
+    clearInterval(clearInt)
+   
   }
-  return color;
-};
 
-let intervalId;
-const startChangingColor = function () {
-  if (!intervalId) {
-    intervalId = setInterval(changeBgColor, 1000);
-  }
+  const defaultval = ()=>{
+        document.body.style.backgroundColor = "black"
+        document.body.style.color = "#fff"
+        document.querySelector("h1").textContent = "Click Start to see multiple colored backgrounds."
 
-  function changeBgColor() {
-    document.body.style.backgroundColor = randomColor();
-  }
-};
-const stopChangingColor = function () {
-  clearInterval(intervalId);
-  intervalId = null;
-};
+    }
 
-document.querySelector('#start').addEventListener('click', startChangingColor);
+  document.querySelector("#stop").addEventListener("click",()=>{
+    stopChangeColor()
+    defaultval()
+}
+    )
 
-document.querySelector('#stop').addEventListener('click', stopChangingColor);
+    //Here is for the stop here button
 
+    document.querySelector("#stop2").addEventListener("click",stopChangeColor)
+  
+</script>
+</html>
 
 ```
